@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CampusAI 1.1.0 Windows Pilot 下载与安装说明">
+  <title>下载 CampusAI 1.1.0 Pilot</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif; color: #18202b; background: #f3f5f8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { width: min(760px, calc(100% - 32px)); margin: 48px auto; }
+    .hero, section { margin-bottom: 18px; padding: 28px; border: 1px solid #dce2ea; border-radius: 18px; background: white; box-shadow: 0 12px 36px rgba(35, 46, 64, .07); }
+    .brand { color: #6853a5; font-size: .78rem; font-weight: 800; letter-spacing: .14em; }
+    .stage { display: inline-block; margin-top: 12px; padding: 7px 10px; border-radius: 999px; color: #694f00; background: #fff4c7; font-size: .8rem; font-weight: 800; }
+    h1 { margin: 12px 0 4px; font-size: clamp(2rem, 6vw, 3.4rem); }
+    h2 { margin-top: 0; font-size: 1.05rem; }
+    p, li { color: #596577; line-height: 1.7; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; }
+    .meta span { padding: 7px 10px; border-radius: 999px; background: #eef0f7; font-size: .8rem; }
+    .download { display: inline-flex; padding: 13px 20px; border-radius: 10px; color: white; background: #6853a5; font-weight: 800; text-decoration: none; }
+    code { display: block; padding: 12px; overflow-wrap: anywhere; border-radius: 8px; color: #383247; background: #f4f1fa; font-size: .78rem; }
+    .privacy { border-left: 4px solid #6853a5; }
+    footer { padding: 12px 0 36px; color: #7b8492; text-align: center; font-size: .76rem; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="hero">
+    <div class="brand">CAMPUSAI</div>
+    <div class="stage">Pilot / Release Candidate Validation</div>
+    <h1>大学生 AI 项目工作台</h1>
+    <p>扫码、下载、安装、双击，即可进入 CampusAI。无需安装 Python、Node.js、npm 或 Git，也无需使用 PowerShell。</p>
+    <div class="meta"><span>Version 1.1.0</span><span>Windows 10/11 x64</span><span>Per-user install</span></div>
+    <a class="download" href="https://github.com/daliancfy903/campusai-downloads/releases/download/v1.1.0-rc.1/CampusAI-Setup-1.1.0.exe">下载 CampusAI</a>
+  </div>
+
+  <section>
+    <h2>安装包完整性</h2>
+    <p>文件：<strong>CampusAI-Setup-1.1.0.exe</strong></p>
+    <p>大小：<strong id="installer-size">162,221,946 bytes（约 154.7 MiB）</strong></p>
+    <p>SHA-256：</p>
+    <code id="installer-sha256">eaa38c372a500265ef7094e317150cdb8a49ca9af25d31f414b817f7acaf9e2a</code>
+  </section>
+
+  <section>
+    <h2>三步开始</h2>
+    <ol>
+      <li>下载并双击安装包。</li>
+      <li>按 Windows 安全提示确认安装；CampusAI 不会要求关闭 Defender 或 SmartScreen。</li>
+      <li>双击桌面的 CampusAI，等待主页面自动打开。</li>
+    </ol>
+    <p>当前 Pilot / Release Candidate 安装器没有 Authenticode 签名，可能显示“未知发布者”。请只使用本页下载，并核对 SHA-256。</p>
+  </section>
+
+  <section class="privacy">
+    <h2>Privacy</h2>
+    <p>项目数据保存在当前电脑的用户目录。CampusAI 不包含 API Key、不启用 telemetry，默认卸载不会删除项目数据。DeepSeek Key 不随安装器提供，只能由用户在本机显式配置。</p>
+  </section>
+
+  <section>
+    <h2>Known limitations</h2>
+    <ul>
+      <li>仅支持 Windows 10/11 x64。</li>
+      <li>基础安装不包含约 500+ MiB 的增强语义模型；基础 lexical retrieval 可直接使用。</li>
+      <li>固定使用本机端口 3000 和 8000；端口冲突时启动窗口会给出提示。</li>
+      <li>未签名测试构建可能触发 SmartScreen；不会绕过 Windows 安全机制。</li>
+    </ul>
+  </section>
+</main>
+<footer>CampusAI 1.1.0 Pilot / Release Candidate · Local-first · No telemetry</footer>
+</body>
+</html>
