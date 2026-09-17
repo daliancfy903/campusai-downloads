@@ -12,7 +12,7 @@
 
 ## Windows 安全提示
 
-当前测试版安装器可能没有 Authenticode 签名，Windows SmartScreen 因此可能显示未知发布者提示。请仅从
+当前 1.1.0 安装器没有 Authenticode 签名，Windows SmartScreen 因此可能显示未知发布者提示。请仅从
 CampusAI 官方下载页取得文件并核对 SHA-256。CampusAI 不会要求关闭 Defender、SmartScreen 或 UAC。
 
 ## 第一次启动
