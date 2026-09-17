@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="CampusAI 1.1.0 Windows Pilot 下载与安装说明">
   <title>下载 CampusAI 1.1.0 Pilot</title>
+  <script>
+    (function () {
+      var ua = navigator.userAgent || "";
+      var mobileUA = /Android|iPhone|iPad|iPod|Mobile|HarmonyOS/i.test(ua);
+      var iPadOS = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+      document.documentElement.classList.add(mobileUA || iPadOS ? "is-mobile" : "is-desktop");
+    }());
+  </script>
   <style>
     :root { color-scheme: light; font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif; color: #18202b; background: #f3f5f8; }
     * { box-sizing: border-box; }
@@ -13,12 +21,18 @@
     .hero, section { margin-bottom: 18px; padding: 28px; border: 1px solid #dce2ea; border-radius: 18px; background: white; box-shadow: 0 12px 36px rgba(35, 46, 64, .07); }
     .brand { color: #6853a5; font-size: .78rem; font-weight: 800; letter-spacing: .14em; }
     .stage { display: inline-block; margin-top: 12px; padding: 7px 10px; border-radius: 999px; color: #694f00; background: #fff4c7; font-size: .8rem; font-weight: 800; }
+    .mobile-only, .desktop-only { display: none; }
+    html.is-mobile .mobile-only, html.is-desktop .desktop-only { display: block; }
     h1 { margin: 12px 0 4px; font-size: clamp(2rem, 6vw, 3.4rem); }
     h2 { margin-top: 0; font-size: 1.05rem; }
     p, li { color: #596577; line-height: 1.7; }
     .meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; }
     .meta span { padding: 7px 10px; border-radius: 999px; background: #eef0f7; font-size: .8rem; }
     .download { display: inline-flex; padding: 13px 20px; border-radius: 10px; color: white; background: #6853a5; font-weight: 800; text-decoration: none; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .copy, .guide { display: inline-flex; padding: 11px 16px; border: 1px solid #6853a5; border-radius: 10px; color: #58438e; background: white; font: inherit; font-weight: 800; text-decoration: none; cursor: pointer; }
+    .handoff-url { user-select: all; }
+    .notice { padding: 14px 16px; border-radius: 10px; color: #4e421e; background: #fff8dc; }
     code { display: block; padding: 12px; overflow-wrap: anywhere; border-radius: 8px; color: #383247; background: #f4f1fa; font-size: .78rem; }
     .privacy { border-left: 4px solid #6853a5; }
     footer { padding: 12px 0 36px; color: #7b8492; text-align: center; font-size: .76rem; }
@@ -26,16 +40,33 @@
 </head>
 <body>
 <main>
-  <div class="hero">
+  <div class="hero desktop-only" id="desktop-download">
     <div class="brand">CAMPUSAI</div>
     <div class="stage">Pilot / Release Candidate Validation</div>
     <h1>大学生 AI 项目工作台</h1>
     <p>扫码、下载、安装、双击，即可进入 CampusAI。无需安装 Python、Node.js、npm 或 Git，也无需使用 PowerShell。</p>
     <div class="meta"><span>Version 1.1.0</span><span>Windows 10/11 x64</span><span>Per-user install</span></div>
-    <a class="download" href="https://github.com/daliancfy903/campusai-downloads/releases/download/v1.1.0-rc.1/CampusAI-Setup-1.1.0.exe">下载 CampusAI</a>
+    <a class="download" href="https://github.com/daliancfy903/campusai-downloads/releases/download/v1.1.0-rc.1/CampusAI-Setup-1.1.0.exe">下载 CampusAI for Windows</a>
   </div>
 
-  <section>
+  <div class="hero mobile-only" id="mobile-handoff">
+    <div class="brand">CAMPUSAI</div>
+    <div class="stage">Windows 安装指引</div>
+    <h1>CampusAI 是 Windows 桌面应用</h1>
+    <p class="notice">请在 Windows 10/11 电脑下载安装。手机不会自动下载，也不能安装 Windows EXE。</p>
+    <p>请在电脑浏览器中打开：</p>
+    <code class="handoff-url" id="pc-url">https://daliancfy903.github.io/campusai-downloads/</code>
+    <div class="actions">
+      <button class="copy" id="copy-pc-url" type="button">复制电脑下载网址</button>
+      <button class="copy" id="copy-sha256" type="button">复制 SHA-256</button>
+      <a class="guide" href="#install-guide">查看安装说明</a>
+    </div>
+    <p id="copy-status" aria-live="polite"></p>
+  </div>
+
+  <noscript><section><strong>CampusAI 需要在 Windows 10/11 电脑上安装。</strong>请在电脑浏览器打开本页。</section></noscript>
+
+  <section id="install-guide">
     <h2>安装包完整性</h2>
     <p>文件：<strong>CampusAI-Setup-1.1.0.exe</strong></p>
     <p>大小：<strong id="installer-size">162,221,946 bytes（约 154.7 MiB）</strong></p>
@@ -69,5 +100,45 @@
   </section>
 </main>
 <footer>CampusAI 1.1.0 Pilot / Release Candidate · Local-first · No telemetry</footer>
+<script>
+  (function () {
+    var pcUrl = "https://daliancfy903.github.io/campusai-downloads/";
+    var sha256 = "eaa38c372a500265ef7094e317150cdb8a49ca9af25d31f414b817f7acaf9e2a";
+    var status = document.getElementById("copy-status");
+
+    function fallbackCopy(text) {
+      var input = document.createElement("textarea");
+      input.value = text;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.opacity = "0";
+      document.body.appendChild(input);
+      input.select();
+      var copied = document.execCommand("copy");
+      document.body.removeChild(input);
+      if (!copied) throw new Error("copy failed");
+    }
+
+    async function copyText(text, successMessage) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          fallbackCopy(text);
+        }
+        status.textContent = successMessage;
+      } catch (error) {
+        status.textContent = "复制失败，请长按上方内容手动复制。";
+      }
+    }
+
+    document.getElementById("copy-pc-url").addEventListener("click", function () {
+      copyText(pcUrl, "电脑下载网址已复制。请发送到电脑并在 Windows 浏览器打开。");
+    });
+    document.getElementById("copy-sha256").addEventListener("click", function () {
+      copyText(sha256, "SHA-256 已复制。");
+    });
+  }());
+</script>
 </body>
 </html>
