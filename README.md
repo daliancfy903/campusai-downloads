@@ -1,6 +1,6 @@
 # CampusAI Downloads
 
-This public repository contains only the CampusAI 1.1.0 Pilot / Release Candidate download page, Windows installer asset, checksum, QR assets, and public installation guide.
+This public repository contains only the CampusAI 1.1.0 Final Release download page, Windows installer asset, checksum, QR assets, and public installation guide.
 
 CampusAI source code, private project data, API keys, internal documentation, and development history are not published here.
 
